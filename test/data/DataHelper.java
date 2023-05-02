@@ -39,4 +39,7 @@ public class MakingPayment {
     public void checkIfWrongFormatOfField() {
         dataEntryError.shouldBe(Condition.visible);
     }
+
+    private class SelenideElement {
+    }
 }
