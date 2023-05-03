@@ -1,2 +1,2 @@
-package test.java.page;public class OptionSelection {
+package page;public class OptionSelection {
 }
