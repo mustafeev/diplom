@@ -20,18 +20,17 @@ public class DataHelper {
         private String year;
         private String owner;
         private String cvc;
-
     }
 
     private DataHelper() {
     }
 
     public static ApplicationProcessing getAuthInfoUseTestData() {
-        return new ApplicationProcessing("4444 4444 4444 4441", "09", "25", "VADIM MUSTAFEEV", "999");
+        return new ApplicationProcessing("4444 4444 4444 4441", "09", "25", "MUSTAFEEV VADIM", "999");
     }
 
     public static ApplicationProcessing getAuthInfoUseTestDataWithDeclinedCard() {
-        return new ApplicationProcessing("4444 4444 4444 4442", "09", "25", "VADIM MUSTAFEEV", "999");
+        return new ApplicationProcessing("4444 4444 4444 4442", "09", "25", "MUSTAFEEV VADIM", "999");
     }
 
     public static ApplicationProcessing getAuthEmptyFormFields() {
