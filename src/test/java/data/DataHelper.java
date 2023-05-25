@@ -3,14 +3,16 @@ package data;
 import com.github.javafaker.Faker;
 import lombok.Value;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Random;
-import java.util.Date;
+
+
 
 public class DataHelper {
-    private static Faker faker = new Faker(new Locale("en"));
+    private static Faker fakerEnglish = new Faker(new Locale("en"));
+    private static final Faker fakerRussian = new Faker(new Locale("ru", "RU"));
     static Random random = new Random();
 
     @Value
@@ -25,63 +27,139 @@ public class DataHelper {
     private DataHelper() {
     }
 
-    public static ApplicationProcessing getAuthInfoUseTestData() {
-        return new ApplicationProcessing("4444 4444 4444 4441", "09", "25", "MUSTAFEEV VADIM", "999");
+    //CARD MONTH
+
+    public static String getCardMonth() {
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
     }
 
-    public static ApplicationProcessing getAuthInfoUseTestDataWithDeclinedCard() {
-        return new ApplicationProcessing("4444 4444 4444 4442", "09", "25", "MUSTAFEEV VADIM", "999");
-    }
-
-    public static ApplicationProcessing getAuthEmptyFormFields() {
-        return new ApplicationProcessing(null, null, null, null, null);
-    }
-
-    public static int getCardMonth() {
-        int month = 1 + random.nextInt(10-1);
-        return month;
-    }
-
-    public static int getInvalidCardMonth() {
-        int invalidMonth = 2 + random.nextInt(10-1);
+    public static String getInvalidCardMonth() {
+        String invalidMonth = getCardMonth() + 20;
         return invalidMonth;
     }
 
-    public static int getCardYear() {
-        int year = 23 + random.nextInt(10-1);
-        return year;
+    public static String getEmptyCardMonth() {
+        return (" ");
     }
 
-    public static int getCurrantYear(){
-        Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy");
-        simpleDateFormat.format(calendar.getTime());
-        return getCurrantYear();
+    public static String invalidCardMonthWithZero() {
+        return "00";
     }
 
-    public static int getInvalidYear(){
-        int invalidYear = 3 + random.nextInt(9);
-        return invalidYear;
+    public static String invalidCardMonthWithOneNumber() {
+
+        return fakerEnglish.numerify("#");
     }
 
-    public static String getOwnersName(){
-        return faker.name().fullName();
+    public static String invalidCardMonthWithSymbols() {
+        return fakerEnglish.letterify("?");
     }
+
+    // CARD YEAR
+
+    public static String getCardYear() {
+        return LocalDate.now().plusYears(2).format(DateTimeFormatter.ofPattern("yy"));
+    }
+
+    public static String getInvalidYear() {
+        return LocalDate.now().plusYears(10).format(DateTimeFormatter.ofPattern("yy"));
+    }
+
+    public static String getEmptyCardYear() {
+        return (" ");
+    }
+
+    public static String invalidCardYearWithZero() {
+        return "00";
+    }
+
+    public static String invalidCardYearWithOneNumber() {
+        return fakerEnglish.numerify("#");
+    }
+
+    public static String invalidCardYearWithSymbols() {
+        return fakerEnglish.letterify("?");
+    }
+
+    public static String expiredCardYear(){
+        return LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("yy"));
+    }
+
+    // OWNERS NAME
+
+    public static String getOwnersName() {
+        return fakerEnglish.name().fullName();
+    }
+
+    public static String getInvalidOwnersName() {
+        return fakerRussian.name().fullName();
+    }
+
+    public static String getEmptyOwner() {
+        return (" ");
+    }
+
+    public static String invalidOwnersNameWithSymbols() {
+        return fakerEnglish.letterify("?");
+    }
+
+    public static String invalidOwnersNameWithNumbers() {
+        return fakerEnglish.numerify("#");
+    }
+
+
+    // CVC
 
     public static String generateCvc() {
-
-        return faker.numerify("###");
+        return fakerEnglish.numerify("###");
     }
 
+    public static String generateInvalidCvc() {
+        return fakerEnglish.numerify("##");
+    }
+
+    public static String getEmptyCvc() {
+        return (" ");
+    }
+
+    public static String generateInvalidCvcWithZero() {
+        return "000";
+    }
+
+    public static String invalidCvcWithSymbols() {
+        return fakerEnglish.letterify("?");
+    }
+
+
+    // CARD NUMBER
+
+
     public static String approvedCardNumber() {
-        return "4444 4444 44444 4441";
+        return "4444444444444441";
     }
 
     public static String declinedCardNumber() {
-        return "4444 4444 44444 4442";
+        return "4444444444444442";
     }
 
+    public static String invalidCardNumberWithAllZero() {
+        return "0000000000000000";
+    }
+
+    public static String invalidCardNumberWithFifteenSymbols() {
+        return fakerEnglish.numerify("###############");
+    }
+
+    public static String invalidCardNumberWithSeventeenSymbols() {
+        return fakerEnglish.numerify("#################");
+    }
+
+    public static String invalidCardNumberWithSymbols() {
+        return fakerEnglish.letterify("?");
+    }
+
+    public static String getEmptyCardNumber() {
+        return (" ");
+    }
 
 }
