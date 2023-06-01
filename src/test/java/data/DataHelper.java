@@ -2,6 +2,7 @@ package data;
 
 import com.github.javafaker.Faker;
 import lombok.Value;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,17 +12,17 @@ import java.util.Random;
 
 
 public class DataHelper {
-    private static Faker fakerEnglish = new Faker(new Locale("en"));
+    private static final Faker fakerEnglish = new Faker(new Locale("en"));
     private static final Faker fakerRussian = new Faker(new Locale("ru", "RU"));
     static Random random = new Random();
 
     @Value
     public static class ApplicationProcessing {
-        private String cardNumber;
-        private String month;
-        private String year;
-        private String owner;
-        private String cvc;
+        String cardNumber;
+        String month;
+        String year;
+        String owner;
+        String cvc;
     }
 
     private DataHelper() {
@@ -34,8 +35,7 @@ public class DataHelper {
     }
 
     public static String getInvalidCardMonth() {
-        String invalidMonth = getCardMonth() + 20;
-        return invalidMonth;
+        return String.valueOf(Math.random()*10);
     }
 
     public static String getEmptyCardMonth() {
@@ -78,7 +78,7 @@ public class DataHelper {
     }
 
     public static String invalidCardYearWithSymbols() {
-        return fakerEnglish.letterify("?");
+        return RandomStringUtils.randomAscii(1);
     }
 
     public static String expiredCardYear(){
@@ -100,7 +100,7 @@ public class DataHelper {
     }
 
     public static String invalidOwnersNameWithSymbols() {
-        return fakerEnglish.letterify("?");
+        return RandomStringUtils.randomAscii(1);
     }
 
     public static String invalidOwnersNameWithNumbers() {
@@ -127,7 +127,7 @@ public class DataHelper {
     }
 
     public static String invalidCvcWithSymbols() {
-        return fakerEnglish.letterify("?");
+        return RandomStringUtils.randomAscii(1);
     }
 
 
@@ -155,7 +155,7 @@ public class DataHelper {
     }
 
     public static String invalidCardNumberWithSymbols() {
-        return fakerEnglish.letterify("?");
+        return RandomStringUtils.randomAscii(1);
     }
 
     public static String getEmptyCardNumber() {
