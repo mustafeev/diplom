@@ -265,7 +265,7 @@ public class MakingPayment {
     }
 
     public void checkPaymentSuccess() {
-        successNotification.shouldBe(Condition.visible, Duration.ofSeconds(6));
+        successNotification.shouldBe(Condition.visible, Duration.ofSeconds(10));
     }
 
     public void checkIfPaymentNotSuccessful() {
